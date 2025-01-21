@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # The Rust Programming Language
 
 ![Build Status](https://github.com/rust-lang/book/workflows/CI/badge.svg)
@@ -114,3 +115,7 @@ which is provided in `ci/dictionary.txt`. If the script produces a false
 positive (say, you used the word `BTreeMap` which the script considers invalid),
 you need to add this word to `ci/dictionary.txt` (keep the sorted order for
 consistency).
+=======
+# PersianRustBook
+F Rust... i mean Farsi rust :p
+>>>>>>> bb4fdddfa3b725f9a6432f4a8d284bad0b4a48cf
