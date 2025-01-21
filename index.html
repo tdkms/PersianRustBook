@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persian Rust Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .animated-gradient {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9d56e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        .shadow-magical {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 
+                        0 10px 20px -5px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-full m-0 p-0">
+    <div class="bg-white rounded-3xl p-12 text-center max-w-2xl mx-4 shadow-magical relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-2 animated-gradient"></div>
+        
+        <h1 class="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
+            کتاب زبان برنامه‌نویسی Rust به فارسی
+        </h1>
+        
+        <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+            این ترجمه توسط <span class="font-bold text-purple-600">TDKMS</span> با دقت و عشق به جامعه برنامه‌نویسی ایران تهیه شده است. 
+            تمام محتوای این کتاب ترجمه‌ای از کتاب رسمی Rust است.
+        </p>
+        
+        <div class="flex justify-center items-center space-x-reverse space-x-4 mb-8">
+            <div class="w-16 h-1 bg-purple-500 rounded"></div>
+            <div class="w-16 h-1 bg-blue-400 rounded"></div>
+            <div class="w-16 h-1 bg-teal-300 rounded"></div>
+        </div>
+        
+        <a href="https://tdkms.github.io/PersianRustBook/book/" 
+           class="inline-block bg-gradient-to-r from-purple-600 to-blue-500 text-white px-10 py-4 rounded-full text-lg font-semibold 
+                  hover:from-purple-700 hover:to-blue-600 transition-all duration-300 ease-in-out 
+                  transform hover:-translate-y-1 hover:scale-105 shadow-lg">
+            مطالعه کتاب
+        </a>
+        
+        <div class="mt-8 text-sm text-gray-600">
+            <p>تمامی حقوق ترجمه محفوظ است © TDKMS</p>
+            <p>ترجمه با همکاری جامعه اوپن سورس</p>
+        </div>
+    </div>
+</body>
+</html>
