@@ -59,8 +59,8 @@
 
 ## 📞 ارتباط | Contact
 
-- **تلگرام**: [TDKMS Telegram](https://t.me/tdkms)
-- **ایمیل**: tdkms.dev@gmail.com
+- **تلگرام**: [TDKMS Telegram](https://t.me/MrTdkms)
+- **ایمیل**: MrTdkms.Dev@gmail.com
 
 ### نحوه مشارکت:
 
