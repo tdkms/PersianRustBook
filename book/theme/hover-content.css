@@ -1,0 +1,171 @@
+/* FUCK YEA, ANIMATIONS!! */
+
+.hoverable {
+    border-bottom: 2px dotted #764ba2;
+    cursor: help;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0 2px;
+}
+
+.hoverable:hover {
+    background: linear-gradient(120deg, rgba(118, 75, 162, 0.2), rgba(102, 126, 234, 0.2));
+    border-bottom-color: #667eea;
+    text-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+}
+
+.hover-dialog {
+    position: absolute;
+    direction: rtl;
+    background: rgba(23, 25, 35, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(138, 95, 182, 0.3);
+    border-radius: 12px;
+    padding: 1.2rem;
+    max-width: 300px;
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(138, 95, 182, 0.2) inset,
+        0 0 20px rgba(102, 126, 234, 0.1),
+        0 0 40px rgba(118, 75, 162, 0.1);
+    z-index: 1000;
+    font-size: 0.9em;
+    transform-origin: top center;
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.hover-dialog.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(138, 95, 182, 0.2) inset, 0 0 20px rgba(102, 126, 234, 0.1); }
+    50% { box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(138, 95, 182, 0.4) inset, 0 0 40px rgba(102, 126, 234, 0.3); }
+    100% { box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(138, 95, 182, 0.2) inset, 0 0 20px rgba(102, 126, 234, 0.1); }
+}
+
+.hover-dialog::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 24px;
+    width: 12px;
+    height: 12px;
+    background: inherit;
+    border-left: 1px solid rgba(138, 95, 182, 0.3);
+    border-top: 1px solid rgba(138, 95, 182, 0.3);
+    transform: rotate(45deg);
+    animation: arrowPulse 2s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+    0% { transform: rotate(45deg) scale(1); }
+    50% { transform: rotate(45deg) scale(1.2); }
+    100% { transform: rotate(45deg) scale(1); }
+}
+
+.hover-title {
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 
+                 0 0 20px rgba(255, 255, 255, 0.3);
+    position: relative;
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(96, 165, 250, 0.5); }
+    100% { text-shadow: 0 0 10px rgba(167, 139, 250, 0.3); }
+}
+
+.hover-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #a78bfa, #60a5fa, transparent);
+    animation: lineWidth 3s ease-in-out infinite;
+}
+
+@keyframes lineWidth {
+    0% { width: 0%; opacity: 0.5; }
+    50% { width: 100%; opacity: 1; }
+    100% { width: 0%; opacity: 0.5; }
+}
+
+.hover-content {
+    line-height: 1.6;
+    color: #e2e8f0;
+    text-shadow: 0 0 10px rgba(226, 232, 240, 0.1);
+}
+
+@keyframes neonPulse {
+    0% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(96, 165, 250, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0); }
+}
+
+.hoverable:hover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    animation: neonPulse 1.5s infinite;
+    pointer-events: none;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hover-dialog {
+    background: linear-gradient(
+        120deg,
+        rgba(23, 25, 35, 0.95),
+        rgba(30, 32, 45, 0.95),
+        rgba(23, 25, 35, 0.95)
+    );
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite, floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+.hover-dialog::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #a78bfa, #60a5fa, #a78bfa);
+    border-radius: 13px;
+    z-index: -1;
+    opacity: 0;
+    animation: borderGlow 3s linear infinite;
+}
+
+@keyframes borderGlow {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0.2; }
+}

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Hello, Cargo! - زبان برنامه نویسی Rust</title>
+        <title>آشنایی با Cargo - زبان برنامه نویسی Rust</title>
 
 
         <!-- Custom HTML head -->
@@ -33,6 +33,8 @@
         <link rel="stylesheet" href="theme/2018-edition.css">
         <link rel="stylesheet" href="theme/semantic-notes.css">
         <link rel="stylesheet" href="theme/listing.css">
+        <link rel="stylesheet" href="theme/hover-content.css">
+        <link rel="stylesheet" href="theme/custom.css">
 
 
         <!-- Provide site root to javascript -->
@@ -159,197 +161,107 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="hello-cargo"><a class="header" href="#hello-cargo">Hello, Cargo!</a></h2>
-<p>Cargo is Rust’s build system and package manager. Most Rustaceans use this tool
-to manage their Rust projects because Cargo handles a lot of tasks for you,
-such as building your code, downloading the libraries your code depends on, and
-building those libraries. (We call the libraries that your code needs
-<em>dependencies</em>.)</p>
-<p>The simplest Rust programs, like the one we’ve written so far, don’t have any
-dependencies. If we had built the “Hello, world!” project with Cargo, it would
-only use the part of Cargo that handles building your code. As you write more
-complex Rust programs, you’ll add dependencies, and if you start a project
-using Cargo, adding dependencies will be much easier to do.</p>
-<p>Because the vast majority of Rust projects use Cargo, the rest of this book
-assumes that you’re using Cargo too. Cargo comes installed with Rust if you
-used the official installers discussed in the
-<a href="ch01-01-installation.html#installation">“Installation”</a><!-- ignore --> section. If you installed Rust
-through some other means, check whether Cargo is installed by entering the
-following in your terminal:</p>
+                        <h2 id="سلام-کارگو"><a class="header" href="#سلام-کارگو">سلام، کارگو!</a></h2>
+<p>کارگو سیستم بیلد و مدیر بسته‌های Rust است. بیشتر برنامه‌نویسان Rust از این ابزار برای مدیریت پروژه‌هایشان استفاده می‌کنند، چون کارگو وظایف زیادی را به‌صورت خودکار انجام می‌دهد، مثل بیلد کردن کد، دانلود کتابخانه‌های موردنیاز، و بیلد کردن آن کتابخانه‌ها. (به این کتابخانه‌های موردنیاز <em>وابستگی</em> می‌گوییم.)</p>
+<p>برنامه‌های ساده‌ی Rust، مثل همانی که تا الآن نوشتیم، معمولاً هیچ وابستگی‌ای ندارند. اگر پروژه‌ی "Hello, world!" را با کارگو بیلد می‌کردیم، فقط از بخش بیلد آن استفاده می‌شد. اما هرچه برنامه‌ات پیچیده‌تر شود، احتمالاً به وابستگی‌هایی نیاز خواهی داشت، و اگر پروژه‌ات را از اول با کارگو شروع کنی، اضافه کردن این وابستگی‌ها خیلی راحت‌تر می‌شود.</p>
+<p>چون بیشتر پروژه‌های Rust از کارگو استفاده می‌کنند، این کتاب هم فرض می‌کند که تو هم از آن استفاده می‌کنی. اگر Rust را با نصب‌کننده‌ی رسمی آن نصب کرده باشی، کارگو هم همراهش نصب شده است. اما اگر به روش دیگری نصب کرده‌ای، می‌توانی با این دستور بررسی کنی که کارگو نصب است یا نه:</p>
 <pre><code class="language-console">$ cargo --version
 </code></pre>
-<p>If you see a version number, you have it! If you see an error, such as <code>command not found</code>, look at the documentation for your method of installation to
-determine how to install Cargo separately.</p>
-<h3 id="creating-a-project-with-cargo"><a class="header" href="#creating-a-project-with-cargo">Creating a Project with Cargo</a></h3>
-<p>Let’s create a new project using Cargo and look at how it differs from our
-original “Hello, world!” project. Navigate back to your <em>projects</em> directory
-(or wherever you decided to store your code). Then, on any operating system,
-run the following:</p>
+<p>اگر یک شماره نسخه دیدی، یعنی نصب شده! ولی اگر خطایی مثل <code>command not found</code> دیدی، باید مستندات روش نصب را بررسی کنی تا ببینی چطور کارگو را جداگانه نصب کنی.</p>
+<h3 id="ساخت-یک-پروژه-با-کارگو"><a class="header" href="#ساخت-یک-پروژه-با-کارگو">ساخت یک پروژه با کارگو</a></h3>
+<p>حالا بیایید یک پروژه‌ی جدید با کارگو بسازیم و تفاوت‌هایش با پروژه‌ی اولیه‌ی "Hello, world!" را ببینیم. ابتدا به پوشه‌ی پروژه‌هایت برگرد (یا هر جایی که کدهایت را ذخیره می‌کنی) و این دستورات را اجرا کن:</p>
 <pre><code class="language-console">$ cargo new hello_cargo
 $ cd hello_cargo
 </code></pre>
-<p>The first command creates a new directory and project called <em>hello_cargo</em>.
-We’ve named our project <em>hello_cargo</em>, and Cargo creates its files in a
-directory of the same name.</p>
-<p>Go into the <em>hello_cargo</em> directory and list the files. You’ll see that Cargo
-has generated two files and one directory for us: a <em>Cargo.toml</em> file and a
-<em>src</em> directory with a <em>main.rs</em> file inside.</p>
-<p>It has also initialized a new Git repository along with a <em>.gitignore</em> file.
-Git files won’t be generated if you run <code>cargo new</code> within an existing Git
-repository; you can override this behavior by using <code>cargo new --vcs=git</code>.</p>
+<p>دستور اول یک پوشه‌ی جدید به نام <em>hello_cargo</em> می‌سازد و فایل‌های پروژه را داخل آن قرار می‌دهد. بعد از ورود به این پوشه، اگر لیست فایل‌های داخل آن را ببینی، کارگو دو فایل و یک پوشه برایت ساخته است:</p>
+<ul>
+<li>فایل <em>Cargo.toml</em></li>
+<li>یک پوشه به نام <em>src</em> که فایل <em>main.rs</em> داخل آن قرار دارد.</li>
+</ul>
+<p>همچنین کارگو یک ریپازیتوری Git و فایل <em>.gitignore</em> را هم ایجاد کرده است. البته اگر دستور <code>cargo new</code> را داخل یک ریپازیتوری Git اجرا کنی، این فایل‌ها ساخته نمی‌شوند. اگر بخواهی این رفتار را تغییر بدهی، می‌توانی از <code>cargo new --vcs=git</code> استفاده کنی.</p>
 <blockquote>
-<p>Note: Git is a common version control system. You can change <code>cargo new</code> to
-use a different version control system or no version control system by using
-the <code>--vcs</code> flag. Run <code>cargo new --help</code> to see the available options.</p>
+<p><strong>نکته:</strong> Git یک سیستم کنترل نسخه‌ی معروف است. می‌توانی مشخص کنی که <code>cargo new</code> از چه سیستم کنترلی استفاده کند یا اینکه اصلاً از هیچ سیستمی استفاده نکند. برای دیدن گزینه‌های مختلف، <code>cargo new --help</code> را اجرا کن.</p>
 </blockquote>
-<p>Open <em>Cargo.toml</em> in your text editor of choice. It should look similar to the
-code in Listing 1-2.</p>
-<Listing number="1-2" file-name="Cargo.toml" caption="Contents of *Cargo.toml* generated by `cargo new`">
+<p>حالا <em>Cargo.toml</em> را در ویرایشگر موردعلاقه‌ات باز کن. محتوای آن باید شبیه این باشد:</p>
 <pre><code class="language-toml">[package]
 name = "hello_cargo"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# برای اطلاعات بیشتر به این لینک مراجعه کن:
+# https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 </code></pre>
-</Listing>
-<p>This file is in the <a href="https://toml.io"><em>TOML</em></a><!-- ignore --> (<em>Tom’s Obvious, Minimal
-Language</em>) format, which is Cargo’s configuration format.</p>
-<p>The first line, <code>[package]</code>, is a section heading that indicates that the
-following statements are configuring a package. As we add more information to
-this file, we’ll add other sections.</p>
-<p>The next three lines set the configuration information Cargo needs to compile
-your program: the name, the version, and the edition of Rust to use. We’ll talk
-about the <code>edition</code> key in <a href="appendix-05-editions.html">Appendix E</a><!-- ignore -->.</p>
-<p>The last line, <code>[dependencies]</code>, is the start of a section for you to list any
-of your project’s dependencies. In Rust, packages of code are referred to as
-<em>crates</em>. We won’t need any other crates for this project, but we will in the
-first project in Chapter 2, so we’ll use this dependencies section then.</p>
-<p>Now open <em>src/main.rs</em> and take a look:</p>
-<p><span class="filename">Filename: src/main.rs</span></p>
+<p>این فایل با فرمت [<em>TOML</em>] نوشته شده است که یک فرمت ساده و خوانا برای پیکربندی کارگو است.</p>
+<p>بخش <code>[package]</code> اطلاعاتی مثل نام پروژه، نسخه و ویرایش Rust را مشخص می‌کند. بخش <code>[dependencies]</code> جایی است که می‌توانی وابستگی‌های پروژه‌ات را تعریف کنی. در این پروژه به هیچ بسته‌ی اضافی نیاز نداریم، اما در فصل دوم از آن استفاده خواهیم کرد.</p>
+<p>حالا <em>src/main.rs</em> را باز کن:</p>
 <pre><pre class="playground"><code class="language-rust edition2021">fn main() {
     println!("Hello, world!");
 }</code></pre></pre>
-<p>Cargo has generated a “Hello, world!” program for you, just like the one we
-wrote in Listing 1-1! So far, the differences between our project and the
-project Cargo generated are that Cargo placed the code in the <em>src</em> directory
-and we have a <em>Cargo.toml</em> configuration file in the top directory.</p>
-<p>Cargo expects your source files to live inside the <em>src</em> directory. The
-top-level project directory is just for README files, license information,
-configuration files, and anything else not related to your code. Using Cargo
-helps you organize your projects. There’s a place for everything, and
-everything is in its place.</p>
-<p>If you started a project that doesn’t use Cargo, as we did with the “Hello,
-world!” project, you can convert it to a project that does use Cargo. Move the
-project code into the <em>src</em> directory and create an appropriate <em>Cargo.toml</em>
-file. One easy way to get that <em>Cargo.toml</em> file is to run <code>cargo init</code>, which
-will create it for you automatically.</p>
-<h3 id="building-and-running-a-cargo-project"><a class="header" href="#building-and-running-a-cargo-project">Building and Running a Cargo Project</a></h3>
-<p>Now let’s look at what’s different when we build and run the “Hello, world!”
-program with Cargo! From your <em>hello_cargo</em> directory, build your project by
-entering the following command:</p>
+<p>همان برنامه‌ی ساده‌ی "Hello, world!" است که قبلاً نوشتیم! تنها تفاوت این است که کارگو فایل را داخل پوشه‌ی <em>src</em> قرار داده و فایل <em>Cargo.toml</em> را در پوشه‌ی اصلی پروژه ساخته است.</p>
+<p>کارگو انتظار دارد که همه‌ی کدهای پروژه داخل پوشه‌ی <em>src</em> باشند، و پوشه‌ی اصلی فقط شامل فایل‌هایی مثل README، مجوز، و تنظیمات باشد. این ساختار باعث نظم بیشتر پروژه‌ها می‌شود.</p>
+<p>اگر پروژه‌ای را بدون کارگو شروع کرده‌ای (مثل همین "Hello, world!")، می‌توانی آن را به پروژه‌ای که از کارگو استفاده می‌کند تبدیل کنی. فقط کافی است کدهای پروژه را داخل پوشه‌ی <em>src</em> بگذاری و یک فایل <em>Cargo.toml</em> ایجاد کنی. یک راه آسان برای ساخت این فایل، اجرای دستور <code>cargo init</code> است که به‌صورت خودکار آن را برایت می‌سازد.</p>
+<h3 id="بیلد-و-اجرای-پروژه-با-کارگو"><a class="header" href="#بیلد-و-اجرای-پروژه-با-کارگو">بیلد و اجرای پروژه با کارگو</a></h3>
+<p>حالا ببینیم اجرای برنامه‌ی "Hello, world!" با کارگو چه تفاوتی دارد. داخل پوشه‌ی <em>hello_cargo</em>، دستور زیر را اجرا کن:</p>
 <pre><code class="language-console">$ cargo build
    Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)
     Finished dev [unoptimized + debuginfo] target(s) in 2.85 secs
 </code></pre>
-<p>This command creates an executable file in <em>target/debug/hello_cargo</em> (or
-<em>target\debug\hello_cargo.exe</em> on Windows) rather than in your current
-directory. Because the default build is a debug build, Cargo puts the binary in
-a directory named <em>debug</em>. You can run the executable with this command:</p>
-<pre><code class="language-console">$ ./target/debug/hello_cargo # or .\target\debug\hello_cargo.exe on Windows
-Hello, world!
+<p>این دستور یک فایل اجرایی در مسیر <em>target/debug/hello_cargo</em> (یا در ویندوز <em>target\debug\hello_cargo.exe</em>) ایجاد می‌کند، نه در دایرکتوری فعلی شما. چون ساخت پیش‌فرض در حالت دیباگ (debug) است، Cargo فایل باینری را در یک دایرکتوری به نام <em>debug</em> قرار می‌دهد. برای اجرای این فایل اجرایی، می‌توانید این دستور را بزنید:</p>
+<pre><code class="language-console">$ ./target/debug/hello_cargo  # در ویندوز: .\target\debug\hello_cargo.exe
 </code></pre>
-<p>If all goes well, <code>Hello, world!</code> should print to the terminal. Running <code>cargo build</code> for the first time also causes Cargo to create a new file at the top
-level: <em>Cargo.lock</em>. This file keeps track of the exact versions of
-dependencies in your project. This project doesn’t have dependencies, so the
-file is a bit sparse. You won’t ever need to change this file manually; Cargo
-manages its contents for you.</p>
-<p>We just built a project with <code>cargo build</code> and ran it with
-<code>./target/debug/hello_cargo</code>, but we can also use <code>cargo run</code> to compile the
-code and then run the resultant executable all in one command:</p>
+<p>اگر همه چیز درست باشد، <code>Hello, world!</code> در ترمینال نمایش داده می‌شود. اجرای <code>cargo build</code> برای اولین بار یک فایل جدید به نام <em>Cargo.lock</em> در سطح بالای پروژه ایجاد می‌کند. این فایل نسخه‌ی دقیق وابستگی‌های پروژه را ثبت می‌کند. این پروژه وابستگی‌ای ندارد، پس فایل تقریباً خالی خواهد بود. نیازی به ویرایش دستی این فایل ندارید، چون Cargo خودش آن را مدیریت می‌کند.</p>
+<p>ما پروژه را با <code>cargo build</code> ساختیم و با <code>./target/debug/hello_cargo</code> اجرا کردیم، اما می‌توانیم از <code>cargo run</code> استفاده کنیم تا همزمان هم کد را کامپایل کند و هم آن را اجرا کند:</p>
 <pre><code class="language-console">$ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
      Running `target/debug/hello_cargo`
 Hello, world!
 </code></pre>
-<p>Using <code>cargo run</code> is more convenient than having to remember to run <code>cargo build</code> and then use the whole path to the binary, so most developers use <code>cargo run</code>.</p>
-<p>Notice that this time we didn’t see output indicating that Cargo was compiling
-<code>hello_cargo</code>. Cargo figured out that the files hadn’t changed, so it didn’t
-rebuild but just ran the binary. If you had modified your source code, Cargo
-would have rebuilt the project before running it, and you would have seen this
-output:</p>
+<p>استفاده از <code>cargo run</code> راحت‌تر از این است که هر بار <code>cargo build</code> را اجرا کنیم و بعد مسیر کامل باینری را وارد کنیم، به همین دلیل بیشتر توسعه‌دهندگان از <code>cargo run</code> استفاده می‌کنند.</p>
+<p>اگر در کد تغییری نداده باشید، Cargo متوجه می‌شود و دوباره پروژه را نمی‌سازد، فقط باینری را اجرا می‌کند. اما اگر تغییری در کد داده باشید، Cargo قبل از اجرا پروژه را دوباره می‌سازد و چنین خروجی‌ای خواهید دید:</p>
 <pre><code class="language-console">$ cargo run
    Compiling hello_cargo v0.1.0 (file:///projects/hello_cargo)
     Finished dev [unoptimized + debuginfo] target(s) in 0.33 secs
      Running `target/debug/hello_cargo`
 Hello, world!
 </code></pre>
-<p>Cargo also provides a command called <code>cargo check</code>. This command quickly checks
-your code to make sure it compiles but doesn’t produce an executable:</p>
+<p>Cargo یک دستور دیگر هم دارد به نام <code>cargo check</code> که به جای تولید فایل اجرایی، فقط بررسی می‌کند که آیا کد شما کامپایل می‌شود یا نه:</p>
 <pre><code class="language-console">$ cargo check
-   Checking hello_cargo v0.1.0 (file:///projects/hello_cargo)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
+ Checking hello_cargo v0.1.0 (file:///projects/hello_cargo)
+ Finished dev [unoptimized + debuginfo] target(s) in 0.32 secs
 </code></pre>
-<p>Why would you not want an executable? Often, <code>cargo check</code> is much faster than
-<code>cargo build</code> because it skips the step of producing an executable. If you’re
-continually checking your work while writing the code, using <code>cargo check</code> will
-speed up the process of letting you know if your project is still compiling! As
-such, many Rustaceans run <code>cargo check</code> periodically as they write their
-program to make sure it compiles. Then they run <code>cargo build</code> when they’re
-ready to use the executable.</p>
-<p>Let’s recap what we’ve learned so far about Cargo:</p>
+<p>چرا باید بخواهید که یک فایل اجرایی ساخته نشود؟ چون <code>cargo check</code> معمولاً خیلی سریع‌تر از <code>cargo build</code> اجرا می‌شود، چون مرحله‌ی تولید فایل اجرایی را رد می‌کند. اگر مدام در حال بررسی کد هنگام نوشتن هستید، استفاده از <code>cargo check</code> سرعت کار را بالا می‌برد. به همین دلیل، بیشتر برنامه‌نویسان Rust هنگام کدنویسی از <code>cargo check</code> استفاده می‌کنند و وقتی آماده‌ی اجرای برنامه شدند، از <code>cargo build</code> استفاده می‌کنند.</p>
+<p><strong>خلاصه‌ی کارهایی که تا الآن یاد گرفتیم:</strong></p>
 <ul>
-<li>We can create a project using <code>cargo new</code>.</li>
-<li>We can build a project using <code>cargo build</code>.</li>
-<li>We can build and run a project in one step using <code>cargo run</code>.</li>
-<li>We can build a project without producing a binary to check for errors using
-<code>cargo check</code>.</li>
-<li>Instead of saving the result of the build in the same directory as our code,
-Cargo stores it in the <em>target/debug</em> directory.</li>
+<li>با <code>cargo new</code> می‌توانیم یک پروژه جدید بسازیم.</li>
+<li>با <code>cargo build</code> می‌توانیم پروژه را کامپایل کنیم.</li>
+<li>با <code>cargo run</code> همزمان پروژه را کامپایل و اجرا کنیم.</li>
+<li>با <code>cargo check</code> بدون ساختن باینری، بررسی کنیم که کد مشکلی ندارد.</li>
+<li>Cargo خروجی بیلد را به جای قرار دادن در دایرکتوری پروژه، داخل <em>target/debug</em> ذخیره می‌کند.</li>
 </ul>
-<p>An additional advantage of using Cargo is that the commands are the same no
-matter which operating system you’re working on. So, at this point, we’ll no
-longer provide specific instructions for Linux and macOS versus Windows.</p>
-<h3 id="building-for-release"><a class="header" href="#building-for-release">Building for Release</a></h3>
-<p>When your project is finally ready for release, you can use <code>cargo build --release</code> to compile it with optimizations. This command will create an
-executable in <em>target/release</em> instead of <em>target/debug</em>. The optimizations
-make your Rust code run faster, but turning them on lengthens the time it takes
-for your program to compile. This is why there are two different profiles: one
-for development, when you want to rebuild quickly and often, and another for
-building the final program you’ll give to a user that won’t be rebuilt
-repeatedly and that will run as fast as possible. If you’re benchmarking your
-code’s running time, be sure to run <code>cargo build --release</code> and benchmark with
-the executable in <em>target/release</em>.</p>
-<h3 id="cargo-as-convention"><a class="header" href="#cargo-as-convention">Cargo as Convention</a></h3>
-<p>With simple projects, Cargo doesn’t provide a lot of value over just using
-<code>rustc</code>, but it will prove its worth as your programs become more intricate.
-Once programs grow to multiple files or need a dependency, it’s much easier to
-let Cargo coordinate the build.</p>
-<p>Even though the <code>hello_cargo</code> project is simple, it now uses much of the real
-tooling you’ll use in the rest of your Rust career. In fact, to work on any
-existing projects, you can use the following commands to check out the code
-using Git, change to that project’s directory, and build:</p>
+<p>یکی از مزیت‌های Cargo این است که دستوراتش در همه‌ی سیستم‌عامل‌ها یکسان هستند، پس دیگر نیازی نیست برای لینوکس، مک و ویندوز دستور جداگانه بنویسیم.</p>
+<h3 id="بیلد-نسخهی-release"><a class="header" href="#بیلد-نسخهی-release">بیلد نسخه‌ی Release</a></h3>
+<p>وقتی پروژه‌ آماده‌ی انتشار شد، می‌توانید با <code>cargo build --release</code> آن را با بهینه‌سازی کامپایل کنید. این دستور یک فایل اجرایی در مسیر <em>target/release</em> ایجاد می‌کند، نه <em>target/debug</em>. بهینه‌سازی‌ها باعث می‌شوند که کد سریع‌تر اجرا شود، اما زمان کامپایل را افزایش می‌دهند. به همین دلیل، دو حالت مختلف برای بیلد وجود دارد: یکی برای توسعه که سریع‌تر ساخته شود، و یکی برای انتشار که سرعت اجرا بالاتر باشد.</p>
+<p>اگر می‌خواهید عملکرد برنامه را تست کنید، حتماً با <code>cargo build --release</code> کامپایل کنید و فایل اجرایی داخل <em>target/release</em> را اجرا کنید.</p>
+<h3 id="cargo-و-استانداردهای-آن"><a class="header" href="#cargo-و-استانداردهای-آن">Cargo و استانداردهای آن</a></h3>
+<p>در پروژه‌های ساده، Cargo تفاوت زیادی با استفاده‌ی مستقیم از <code>rustc</code> ندارد، اما وقتی پروژه‌ها پیچیده‌تر می‌شوند یا وابستگی‌های بیشتری دارند، مدیریت کارها با Cargo بسیار راحت‌تر خواهد شد.</p>
+<p>حتی در همین پروژه‌ی ساده‌ی <code>hello_cargo</code>، ما از ابزارهایی استفاده کردیم که در کل مسیر یادگیری Rust به کار خواهند آمد. اگر روی یک پروژه‌ی موجود کار می‌کنید، کافی است کد را از گیت دریافت کنید، وارد دایرکتوری پروژه شوید و آن را بسازید (بیلد کنید):</p>
 <pre><code class="language-console">$ git clone example.org/someproject
 $ cd someproject
 $ cargo build
 </code></pre>
-<p>For more information about Cargo, check out <a href="https://doc.rust-lang.org/cargo/">its documentation</a>.</p>
-<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
-<p>You’re already off to a great start on your Rust journey! In this chapter,
-you’ve learned how to:</p>
+<p>برای اطلاعات بیشتر درباره‌ی Cargo، می‌توانید مستندات آن را مطالعه کنید.</p>
+<h2 id="جمعبندی"><a class="header" href="#جمعبندی">جمع‌بندی</a></h2>
+<p>شما شروع بسیار خوبی در یادگیری Rust داشتید! در این فصل یاد گرفتید که:</p>
 <ul>
-<li>Install the latest stable version of Rust using <code>rustup</code></li>
-<li>Update to a newer Rust version</li>
-<li>Open locally installed documentation</li>
-<li>Write and run a “Hello, world!” program using <code>rustc</code> directly</li>
-<li>Create and run a new project using the conventions of Cargo</li>
+<li>نسخه‌ی پایدار Rust را با <code>rustup</code> نصب کنید.</li>
+<li>نسخه‌ی Rust را به‌روز کنید.</li>
+<li>مستندات محلی نصب‌شده را باز کنید.</li>
+<li>یک برنامه‌ی ساده‌ی <code>Hello, world!</code> را با <code>rustc</code> بنویسید و اجرا کنید.</li>
+<li>یک پروژه‌ی جدید بسازید و اجرا کنید، مطابق استانداردهای Cargo.</li>
 </ul>
-<p>This is a great time to build a more substantial program to get used to reading
-and writing Rust code. So, in Chapter 2, we’ll build a guessing game program.
-If you would rather start by learning how common programming concepts work in
-Rust, see Chapter 3 and then return to Chapter 2.</p>
+<p>حالا زمان مناسبی است که یک برنامه‌ی کاربردی‌تر بنویسید تا بیشتر با Rust آشنا شوید. در فصل بعد، یک بازی حدس اعداد خواهیم ساخت. اما اگر ترجیح می‌دهید ابتدا با مفاهیم پایه‌ی برنامه‌نویسی در Rust آشنا شوید، می‌توانید فصل ۳ را مطالعه کنید و بعد به فصل ۲ برگردید.</p>
 
                     </main>
 
@@ -398,6 +310,8 @@ Rust, see Chapter 3 and then return to Chapter 2.</p>
 
         <!-- Custom JS scripts -->
         <script src="ferris.js"></script>
+        <script src="theme/hover-content.js"></script>
+        <script src="theme/custom.js"></script>
 
 
     </div>
